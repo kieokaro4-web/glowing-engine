@@ -1,0 +1,25 @@
+{
+  "name": "appwrite-local-todo-demo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5175 --strictPort",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4175 --strictPort",
+    "appwrite:debug": "bash scripts/appwrite-debug.sh",
+    "appwrite:provision": "bash scripts/provision.sh"
+  },
+  "dependencies": {
+    "appwrite": "^29.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.0"
+  }
+}

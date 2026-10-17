@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+.env.local
+directus/
+directus-start.log
+docs-cache/
+tsconfig.tsbuildinfo

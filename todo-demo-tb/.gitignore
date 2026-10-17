@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+.env.local
+tsconfig.tsbuildinfo
+trailbase-start.log
+
+# TrailBase runtime state (regenerated on first `trail run`) lives inside the
+# depot and is ignored by traildepot/.gitignore:
+#   data/, secrets/, backups/, uploads/, wasm/, metadata.textproto

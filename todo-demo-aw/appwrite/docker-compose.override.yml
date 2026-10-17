@@ -1,0 +1,52 @@
+# Trim the official Appwrite stack to the services this demo needs: the REST API
+# (TablesDB) + Realtime + the worker that finalizes schema jobs + the datastores
+# + Traefik. Disk in this Codespace is limited and Docker's pull peak (compressed
+# + extracted at once) for the full stack exceeded free space, so heavy,
+# demo-irrelevant services are gated behind an "optional" profile and never start
+# or pull: geo (1.75 GB of models), screenshots, MQTT, task schedulers,
+# ClickHouse/usage-analytics, the function/site compute stack (executor +
+# orchestrator), and the legacy mariadb/mongodb datastores.
+#
+# appwrite-console is intentionally KEPT: Appwrite 2.5 self-hosted only grants the
+# first user owner/admin through the Console first-run (see README "Provisioning
+# Wall"); it can be profiled off again once an admin exists.
+#
+# The `appwrite` main container normally depends on geo + autogravity; both are
+# disabled here, so `depends_on` is rewritten with `!override` (Compose otherwise
+# concatenates lists) to just the datastores. Sessions work without geo (country
+# resolves to "--").
+services:
+  appwrite:
+    depends_on: !override
+      - redis
+      - postgresql
+
+  appwrite-realtime:
+    depends_on: !override
+      - redis
+
+  appwrite-geo:
+    profiles: ["optional"]
+
+  appwrite-browser:
+    profiles: ["optional"]
+  appwrite-autogravity:
+    profiles: ["optional"]
+  appwrite-mqtt:
+    profiles: ["optional"]
+  appwrite-task-scheduler:
+    profiles: ["optional"]
+  appwrite-task-maintenance:
+    profiles: ["optional"]
+  appwrite-task-interval:
+    profiles: ["optional"]
+  clickhouse:
+    profiles: ["optional"]
+  openruntimes-executor:
+    profiles: ["optional"]
+  orchestrator:
+    profiles: ["optional"]
+  mariadb:
+    profiles: ["optional"]
+  mongodb:
+    profiles: ["optional"]
